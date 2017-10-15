@@ -30,4 +30,5 @@ $string['headerconfig'] = 'Config section header';
 $string['labelfoo'] = 'Config label';
 $string['newblock:addinstance'] = 'Add a newblock block';
 $string['newblock:myaddinstance'] = 'Add a newblock block to my moodle';
-$string['pluginname'] = 'Newblock';
+$string['pluginname'] = 'Library';
+$string['go'] = 'Go To Library';

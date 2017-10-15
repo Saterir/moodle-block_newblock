@@ -29,43 +29,34 @@ class block_newblock extends block_base {
     function init() {
         $this->title = get_string('pluginname', 'block_newblock');
     }
+    
+    function link_to_mod() {
+    	global $CFG, $COURSE, $PAGE, $USER;
+    	$UserId = $USER->id;
+    	
+    	$library = '<a href="' . $CFG->wwwroot . '/mod/newmodule/index.php?userid='.$UserId.'">'.get_string('go', 'block_newblock').'</a>';
+    	
+    	return $library;
+    }
 
     function get_content() {
-        global $CFG, $OUTPUT;
+        global $CFG, $OUTPUT, $PAGE, $USER;
+        $UserId = $USER->id;
 
         if ($this->content !== null) {
             return $this->content;
         }
 
         if (empty($this->instance)) {
-            $this->content = '';
+            $this->content = 'instance';
             return $this->content;
         }
-
+        
         $this->content = new stdClass();
         $this->content->items = array();
-        $this->content->icons = array();
-        $this->content->footer = '';
-
-        // user/index.php expect course context, so get one if page has module context.
-        $currentcontext = $this->page->context->get_course_context(false);
-
-        if (! empty($this->config->text)) {
-            $this->content->text = $this->config->text;
-        }
-
-        $this->content = '';
-        if (empty($currentcontext)) {
-            return $this->content;
-        }
-        if ($this->page->course->id == SITEID) {
-            $this->content->text .= "site context";
-        }
-
-        if (! empty($this->config->text)) {
-            $this->content->text .= $this->config->text;
-        }
-
+        $this->content->icons = array();     
+        $this->content->footer = html_writer::link(new moodle_url("/mod/newmodule/index.php?userid='$UserId'"),get_string('go', 'block_newblock'));
+        
         return $this->content;
     }
 
