@@ -34,7 +34,7 @@ class block_newblock extends block_base {
     	global $CFG, $COURSE, $PAGE, $USER;
     	$UserId = $USER->id;
     	
-    	$library = '<a href="' . $CFG->wwwroot . '/mod/newmodule/index.php?userid='.$UserId.'">'.get_string('go', 'block_newblock').'</a>';
+    	$library = '<a href="' . $CFG->wwwroot . '/mod/library/library.php?userid='.$UserId.'">'.get_string('go', 'block_newblock').'</a>';
     	
     	return $library;
     }
@@ -55,7 +55,7 @@ class block_newblock extends block_base {
         $this->content = new stdClass();
         $this->content->items = array();
         $this->content->icons = array();     
-        $this->content->footer = html_writer::link(new moodle_url("/mod/newmodule/index.php?userid='$UserId'"),get_string('go', 'block_newblock'));
+        $this->content->footer = html_writer::link(new moodle_url("/local/library/library.php?userid='$UserId'"),get_string('go', 'block_newblock'));
         
         return $this->content;
     }
