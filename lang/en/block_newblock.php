@@ -32,3 +32,4 @@ $string['newblock:addinstance'] = 'Add a newblock block';
 $string['newblock:myaddinstance'] = 'Add a newblock block to my moodle';
 $string['pluginname'] = 'Library';
 $string['go'] = 'Go To Library';
+$string['searchBook'] = 'Book Name';

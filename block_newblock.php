@@ -24,64 +24,42 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+require_once 'search_form.php';
+
 class block_newblock extends block_base {
 
     function init() {
         $this->title = get_string('pluginname', 'block_newblock');
     }
     
-    function link_to_mod() {
-    	global $CFG, $COURSE, $PAGE, $USER;
-    	$UserId = $USER->id;
-    	
-    	$library = '<a href="' . $CFG->wwwroot . '/mod/library/library.php?userid='.$UserId.'">'.get_string('go', 'block_newblock').'</a>';
-    	
-    	return $library;
-    }
 
     function get_content() {
         global $CFG, $OUTPUT, $PAGE, $USER;
         $UserId = $USER->id;
-
-        if ($this->content !== null) {
-            return $this->content;
-        }
-
-        if (empty($this->instance)) {
-            $this->content = 'instance';
-            return $this->content;
-        }
-        
+		
         $this->content = new stdClass();
-        $this->content->items = array();
-        $this->content->icons = array();     
-        $this->content->footer = html_writer::link(new moodle_url("/local/library/library.php?userid='$UserId'"),get_string('go', 'block_newblock'));
+        $this->content->text = '';
+        
+        $mform = new search_form();
+        
+        //Form processing and displaying is done here
+        if ($mform->is_cancelled()) {
+        	//Handle form cancel operation, if cancel button is present on form
+        } else if ($fromform = $mform->get_data()) {
+        	//In this case you process validated data. $mform->get_data() returns data posted in form.
+        	redirect(new moodle_url("/local/library/library.php?userid='$UserId'"));
+        } else {
+        	// this branch is executed if the form is submitted but the data doesn't validate and the form should be redisplayed
+        	// or on the first display of the form.
+        	
+        	//Set default data (if any)
+        	$mform->set_data($toform);
+        	
+        	//displays the form
+        	$this->content->text = $mform->render();
+        }
         
         return $this->content;
-    }
-
-    // my moodle can only have SITEID and it's redundant here, so take it away
-    public function applicable_formats() {
-        return array('all' => false,
-                     'site' => true,
-                     'site-index' => true,
-                     'course-view' => true, 
-                     'course-view-social' => false,
-                     'mod' => true, 
-                     'mod-quiz' => false);
-    }
-
-    public function instance_allow_multiple() {
-          return true;
-    }
-
-    function has_config() {return true;}
-
-    public function cron() {
-            mtrace( "Hey, my cron script is running" );
-             
-                 // do something
-                  
-                      return true;
+        
     }
 }
