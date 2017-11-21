@@ -28,7 +28,7 @@ $capabilities = array(
 
     'block/newblock:Librarian' => array(
         'captype'      => 'write',
-    	'contextlevel' => CONTEXT_MODULE,
+    	'contextlevel' => CONTEXT_BLOCK,
         'archetypes'   => array(
         	'student'    => CAP_ALLOW
         ),
