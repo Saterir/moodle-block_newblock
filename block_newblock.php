@@ -34,32 +34,14 @@ class block_newblock extends block_base {
     
 
     function get_content() {
-        global $CFG, $OUTPUT, $PAGE, $USER;
-        //$UserId = $USER->id;
-		
+        global $CFG, $OUTPUT, $PAGE, $USER, $COURSE;
         $this->content = new stdClass();
-        $this->content->text = '';
-        
-        $mform = new search_form();
-        
-        //Form processing and displaying is done here
-        if ($mform->is_cancelled()) {
-        	//Handle form cancel operation, if cancel button is present on form
-        } else if ($fromform = $mform->get_data()) {
-        	//In this case you process validated data. $mform->get_data() returns data posted in form.
-        	$userId   = $fromform->userId;
-        	$textName = $fromform->book;
-        	redirect(new moodle_url("/local/library/library.php?userId='$userId'&textName='$textName'"));
-        } else {
-        	// this branch is executed if the form is submitted but the data doesn't validate and the form should be redisplayed
-        	// or on the first display of the form.
-        	
-        	//Set default data (if any)
-        	$mform->set_data($toform);
-        	
-        	//displays the form
-        	$this->content->text = $mform->render();
+        if(has_capability("local/library:Librarian",get_context_instance(CONTEXT_BLOCK, $this->instance->id))){
+        	$this->content->text = html_writer::link(new moodle_url("/local/library/librarian.php?courseid=2"),get_string('librarian', 'block_newblock'));
         }
+        $url = new moodle_url('/local/library/library.php');
+        $this->content->footer = html_writer::link(new moodle_url("/local/library/library.php?"),get_string('go', 'block_newblock'));
+        
         
         return $this->content;
         

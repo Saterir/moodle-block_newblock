@@ -27,10 +27,11 @@ defined('MOODLE_INTERNAL') || die();
 $capabilities = array(
 
     'block/newblock:Librarian' => array(
-        'captype'      => 'write',
+    	'riskbitmask' => RISK_SPAM | RISK_XSS,
+        'captype'      => 'read',
     	'contextlevel' => CONTEXT_BLOCK,
-        'archetypes'   => array(
-        	'student'    => CAP_ALLOW
+    	'legacy' => array(
+    			'manager' => CAP_ALLOW
         ),
 
         'clonepermissionsfrom' => 'moodle/my:manageblocks'
