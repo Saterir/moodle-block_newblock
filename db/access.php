@@ -29,7 +29,7 @@ $capabilities = array(
     'block/newblock:Librarian' => array(
     	'riskbitmask' => RISK_SPAM | RISK_XSS,
         'captype'      => 'read',
-    	'contextlevel' => CONTEXT_BLOCK,
+    		'contextlevel' => CONTEXT_MODULE,
     	'legacy' => array(
     			'manager' => CAP_ALLOW
         ),

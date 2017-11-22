@@ -37,7 +37,7 @@ class block_newblock extends block_base {
         global $CFG, $OUTPUT, $PAGE, $USER, $COURSE;
         $this->content = new stdClass();
         if(has_capability("local/library:Librarian",get_context_instance(CONTEXT_BLOCK, $this->instance->id))){
-        	$this->content->text = html_writer::link(new moodle_url("/local/library/librarian.php?courseid=2"),get_string('librarian', 'block_newblock'));
+        	$this->content->text = html_writer::link(new moodle_url("/local/library/librarian.php"),get_string('librarian', 'block_newblock'));
         }
         $url = new moodle_url('/local/library/library.php');
         $this->content->footer = html_writer::link(new moodle_url("/local/library/library.php?"),get_string('go', 'block_newblock'));
